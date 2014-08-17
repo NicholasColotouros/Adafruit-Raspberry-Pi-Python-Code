@@ -16,11 +16,10 @@ numbers = "0123456789."
 symbols = "+-*/()="
 
 #Global information for easy updating
-buttonPressed = False #ensures one press only does one action
-showNumbers   = True  #Indicates whether numbers or symbols should be shown
-input         = ""    #the currently input expression
-cursorLocation= 0
-
+showNumbers   = True  # Indicates whether numbers or symbols should be shown
+input         = ""    # The currently input expression
+cursorLocation= 0     
+delayTime = 2         #
 
 
 """
@@ -30,12 +29,39 @@ MenuChanged signals a change from numbers to symbols or vice versa.
 """
 def update(menuChanged):
     lcd.clear()
-    if showNumers:
+    if showNumbers:
         lcd.message(input+"\n"+numbers)
     else:
         lcd.message(input+"\n"+symbols)
 
     if menuChanged:
-        lcd.setCursor(1,0)
+        lcd.setCursor(0,1)
     else:
-        lcd.setCursor(1, cursorLocation)
+        lcd.setCursor(cursorLocation,1)
+
+
+# Startup
+lcd.blink()
+update(False)
+
+
+#Polls for input, sleep for 2 seconds after every press to ensure only 1 action per press
+while True:
+    # Move left
+    if lcd.buttonPressed(lcd.LEFT):
+        if cursorLocation > 0:
+            cursorLocation = cursorLocation - 1
+            lcd.setCursor(cursorLocation, 1)
+        sleep(delayTime)
+         
+    # Move right
+    elif lcd.buttonPressed(lcd.RIGHT):
+        if showNumbers:
+            if cursorLocation + 1 < len(numbers):
+                cursorLocation += 1
+                lcd.setCursor(cursorLocation, 1)
+
+        elif cursorLocation + 1 < len(symbols):
+            cursorLocation += 1
+            lcd.setCursor(cursorLocation, 1)
+        sleep(delayTime)

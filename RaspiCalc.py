@@ -65,3 +65,8 @@ while True:
             cursorLocation += 1
             lcd.setCursor(cursorLocation, 1)
         sleep(delayTime)
+
+    # Toggle display
+    elif lcd.buttonPressed(lcd.UP):
+        showNumbers = not showNumbers
+        update(True)

@@ -70,3 +70,8 @@ while True:
     elif lcd.buttonPressed(lcd.UP):
         showNumbers = not showNumbers
         update(True)
+
+    # Delete last entry
+    elif lcd.buttonPressed(lcd.DOWN):
+        input = input[:-1]
+        update(False)

@@ -93,7 +93,7 @@ while True:
         if not showNumbers and symbols[cursorLocation] == '=':
             try:
                 result = eval(input)
-                result = str(input)
+                result = str(result)
 
                 # If the result can't fit in the screen, overflow error
                 if int(result) >= 10^16:

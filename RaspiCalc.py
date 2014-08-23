@@ -8,7 +8,7 @@ lcd = Adafruit_CharLCDPlate.Adafruit_CharLCDPlate()
 lcd.begin(16,2)
 lcd.clear()
 lcd.message("  Introducing\n   RaspiCalc")
-sleep(1)
+sleep(2)
 lcd.clear()
 
 #Supported numbers and operations
@@ -60,6 +60,16 @@ while True:
             lcd.setCursor(cursorLocation, 1)
 
             sleep(delayTime)
+
+        # Move to the end if going left
+        else:
+            if showNumbers:
+                cursorLocation = len(numbers) - 1
+            else:
+                cursorLocation = len(symbols) - 1
+
+            lcd.setCursor(cursorLocation, 1)
+
          
     # Move right
     elif lcd.buttonPressed(lcd.RIGHT):
@@ -67,10 +77,18 @@ while True:
             if cursorLocation + 1 < len(numbers):
                 cursorLocation += 1
                 lcd.setCursor(cursorLocation, 1)
-
+            else: #else wrap around to the start
+                cursorLocation = 0
+                lcd.setCursor(cursorLocation, 1)
+                
         elif cursorLocation + 1 < len(symbols):
             cursorLocation += 1
             lcd.setCursor(cursorLocation, 1)
+
+        else: #wrap around to the start
+            cursorLocation = 0
+            lcd.setCursor(cursorLocation, 1)
+
         sleep(delayTime)
 
     # Toggle display

@@ -114,7 +114,7 @@ while True:
                 result = str(result)
 
                 # If the result can't fit in the screen, overflow error
-                if int(result) >= 10^16:
+                if len(result) > 16:
                     errorMessage("Overflow Error")
                 else:
                     input = result

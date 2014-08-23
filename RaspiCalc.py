@@ -26,8 +26,9 @@ delayTime = 1         # The time it takes to look for another button press
 Updates the display based on the global variables.
 
 MenuChanged signals a change from numbers to symbols or vice versa.
+CursorLocation needs to be passed in order for python to update the variable.
 """
-def update(menuChanged):
+def update(menuChanged, cursorLocation):
     lcd.clear()
     if showNumbers:
         lcd.message(input+"\n"+numbers)
@@ -48,11 +49,11 @@ def errorMessage(errMessage):
     lcd.clear()
     lcd.message(errMessage)
     sleep(4)
-    update(False)
+    update(False, cursorLocation)
 
 # Startup
 lcd.blink()
-update(False)
+update(False, cursorLocation)
 
 
 #Polls for input, sleep for 2 seconds after every press to ensure only 1 action per press
@@ -79,13 +80,13 @@ while True:
     # Toggle display
     elif lcd.buttonPressed(lcd.UP):
         showNumbers = not showNumbers
-        update(True)
+        update(True, cursorLocation)
         sleep(delayTime)
 
     # Delete last entry
     elif lcd.buttonPressed(lcd.DOWN):
         input = input[:-1]
-        update(False)
+        update(False, cursorLocation)
         sleep(delayTime)
 
     # Select the current entry
@@ -95,16 +96,18 @@ while True:
         if not showNumbers and symbols[cursorLocation] == '=':
             try:
                 result = eval(input)
+                result = str(input)
 
                 # If the result can't fit in the screen, overflow error
-                if result > 10^16:
+                if result >= 10^16:
                     errorMessage("Overflow Error")
                 else:
                     input = result
-                    update(False)
+                    update(False, cursorLocation)
 
             except:
                 errorMessage("Invalid Syntax")
+                print input
 
         # Something else was selected
         else:
@@ -112,5 +115,5 @@ while True:
                 input = input + numbers[cursorLocation]
             else:
                 input = input + symbols[cursorLocation]
-            update(False)
+            update(False, cursorLocation)
         sleep(delayTime)    

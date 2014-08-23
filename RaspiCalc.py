@@ -64,9 +64,9 @@ while True:
         # Move to the end if going left
         else:
             if showNumbers:
-                cursorLocation = len(numbers) - 1
+                cursorLocation = len(numbers)
             else:
-                cursorLocation = len(symbols) - 1
+                cursorLocation = len(symbols)
 
             lcd.setCursor(cursorLocation, 1)
 

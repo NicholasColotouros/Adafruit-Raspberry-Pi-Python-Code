@@ -19,7 +19,7 @@ symbols = "+-*/()="
 showNumbers   = True  # Indicates whether numbers or symbols should be shown
 input         = ""    # The currently input expression
 cursorLocation= 0     
-delayTime = 0.75         # The time it takes to look for another button press
+delayTime = 0.75      # The time it takes to look for another button press
 
 
 """

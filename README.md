@@ -6,6 +6,8 @@ This is a fork of the Adafruit-Raspberry-Pi-Python-Code repository. Included are
 
 The top line of the display shows the equation currently being entered or the result of the requested evaluation. The bottom line serves as a menu to select digits or operations (+, -, *, etc).
 
+To run, simply call sudo python RaspiCalc.py
+
 Controls
 --------
 

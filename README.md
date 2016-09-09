@@ -8,6 +8,8 @@ The top line of the display shows the equation currently being entered or the re
 
 To run, simply call sudo python RaspiCalc.py
 
+Alternatively, check out the demo video at the root of this repository.
+
 Controls
 --------
 
